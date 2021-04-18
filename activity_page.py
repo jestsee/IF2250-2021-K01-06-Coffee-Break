@@ -3,6 +3,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 import sqlite3
 from activity_list import activity_list
+from datetime import datetime
 
 class ActivityPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -66,7 +67,13 @@ class ActivityPage(tk.Frame):
         current_canvas.create_text(60, 20, text="Current Activities")
 
         #Menuliskan 3 current activites
+        curr_act_label = tk.Label(self, text=show_top3_act())
+        curr_act_label.place(x=800, y=120)
 
+        #Membuat button See My Activity
+        see_my_act_button = tk.Button(self, text="See My Activity", bg="WHITE", command=all_activity_page)
+        see_my_act_button.config(width=15, height=3)
+        see_my_act_button.place(x=1050, y=400)
 
         #Membuat button add new activity
         add_act_button = tk.Button(self, text="Add new activity", bg="WHITE", command=add_activity_page)
@@ -113,21 +120,37 @@ CREATE TABLE IF NOT EXISTS activity (
 )
 """)
 
+# c.execute("DELETE FROM activity")
+
+#Commit changes
+conn.commit()
+
+#Close connection
+conn.close()
+
 #Create add_activity function
-def add_activity():
+def add_activity(no_act):
     #Create or connect database activity
     conn = sqlite3.connect('activity.db')
 
     #Create cursor
     c = conn.cursor()
 
+    #Menghitung jumlah record
+    c.execute("SELECT COUNT(*) from activity")
+    num_row = c.fetchone()[0]
+
+    #Mendapatkan waktu
+    now = datetime.now()
+    now_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
     #Insert into table
     c.execute("INSERT INTO activity VALUES (:act_id, :act_name, :act_detail, :timestamp)",
     {
-        'act_id': act_id.get(),
-        'act_name': act_name.get(),
-        'act_detail': act_detail.get(),
-        'timestamp': timestamp.get()
+        'act_id': num_row,
+        'act_name': activity_list()[no_act][0],
+        'act_detail': activity_list()[no_act][1],
+        'timestamp': now_string
     })
 
     #Commit changes
@@ -136,13 +159,31 @@ def add_activity():
     #Close connection
     conn.close()
 
-    #Clear the text box
-    act_id.delete(0, END)
-    act_name.delete(0, END)
-    act_detail.delete(0, END)
-    timestamp.delete(0, END)
+def add_activity1():
+    add_activity(0)
 
-#Create add_activity page
+def add_activity2():
+    add_activity(1)
+
+def add_activity3():
+    add_activity(2)
+
+def add_activity4():
+    add_activity(3)
+
+def add_activity5():
+    add_activity(4)
+
+def add_activity6():
+    add_activity(5)
+
+def add_activity7():
+    add_activity(6)
+
+def add_activity8():
+    add_activity(7)
+
+#Create add activity page
 def add_activity_page():
     newWindow = Toplevel(app)
     newWindow.title("Add new activity")
@@ -153,7 +194,7 @@ def add_activity_page():
     add_act1_canvas.config(width=350, height=50)
     add_act1_canvas.place(x=20, y=20)
     add_act1_canvas.create_text(40, 20, text=activity_list()[0][0])
-    add_act1_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act1_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=add_activity1)
     add_act1_btn.config(width=3, height=2)
     add_act1_btn.place(x=300, y=27)
 
@@ -162,7 +203,7 @@ def add_activity_page():
     add_act2_canvas.config(width=350, height=50)
     add_act2_canvas.place(x=20, y=80)
     add_act2_canvas.create_text(40, 20, text=activity_list()[1][0])
-    add_act2_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act2_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=add_activity2)
     add_act2_btn.config(width=3, height=2)
     add_act2_btn.place(x=300, y=87)
 
@@ -171,7 +212,7 @@ def add_activity_page():
     add_act3_canvas.config(width=350, height=50)
     add_act3_canvas.place(x=20, y=140)
     add_act3_canvas.create_text(40, 20, text=activity_list()[2][0])
-    add_act3_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act3_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=add_activity3)
     add_act3_btn.config(width=3, height=2)
     add_act3_btn.place(x=300, y=147)
 
@@ -180,7 +221,7 @@ def add_activity_page():
     add_act4_canvas.config(width=350, height=50)
     add_act4_canvas.place(x=20, y=200)
     add_act4_canvas.create_text(40, 20, text=activity_list()[3][0])
-    add_act4_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act4_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=add_activity4)
     add_act4_btn.config(width=3, height=2)
     add_act4_btn.place(x=300, y=207)
 
@@ -189,7 +230,7 @@ def add_activity_page():
     add_act5_canvas.config(width=350, height=50)
     add_act5_canvas.place(x=20, y=260)
     add_act5_canvas.create_text(40, 20, text=activity_list()[4][0])
-    add_act5_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act5_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=add_activity5)
     add_act5_btn.config(width=3, height=2)
     add_act5_btn.place(x=300, y=267)
 
@@ -198,7 +239,7 @@ def add_activity_page():
     add_act6_canvas.config(width=350, height=50)
     add_act6_canvas.place(x=20, y=320)
     add_act6_canvas.create_text(40, 20, text=activity_list()[5][0])
-    add_act6_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act6_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=add_activity6)
     add_act6_btn.config(width=3, height=2)
     add_act6_btn.place(x=300, y=327)
 
@@ -207,7 +248,7 @@ def add_activity_page():
     add_act7_canvas.config(width=350, height=50)
     add_act7_canvas.place(x=20, y=380)
     add_act7_canvas.create_text(40, 20, text=activity_list()[6][0])
-    add_act7_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act7_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=add_activity7)
     add_act7_btn.config(width=3, height=2)
     add_act7_btn.place(x=300, y=387)
 
@@ -216,17 +257,66 @@ def add_activity_page():
     add_act8_canvas.config(width=350, height=50)
     add_act8_canvas.place(x=20, y=440)
     add_act8_canvas.create_text(40, 20, text=activity_list()[7][0])
-    add_act8_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act8_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=add_activity8)
     add_act8_btn.config(width=3, height=2)
     add_act8_btn.place(x=300, y=447)
 
-    # print_activity_list = ''
-    # for act in activity_list():
-    #     print_activity_list += act[0] + '\n'
-    #     print_activity_list += act[1] + '\n'
+#Create show all activity page
+def all_activity_page():
+    newWindow = Toplevel(app)
+    newWindow.title("See my activity")
+    newWindow.geometry("390x510")
 
-    # act_label = Label(newWindow, text=print_activity_list)
-    # act_label.place(x=10, y=10)
+    label = tk.Label(newWindow, text=show_all_act())
+    label.place(x=10, y=10)
+
+
+#Show 3 current activities
+def show_top3_act():
+    #Create or connect database activity
+    conn = sqlite3.connect('activity.db')
+
+    #Create cursor
+    c = conn.cursor()
+
+    #Menghitung jumlah record
+    c.execute("SELECT COUNT(*) from activity")
+    num_row = c.fetchone()[0]
+
+    #Mendapatkan 3 aktivitas terakhir
+    if (num_row <= 3):
+        c.execute("SELECT * from activity")
+    else:
+        start_row = num_row-2
+        c.execute("SELECT * from activity ORDER BY activityId desc LIMIT 3")
+
+
+    records = c.fetchall()
+
+    print_record = ''
+    for record in records:
+        print_record += str(record[0]) + " " + record[1] + " " + record[3] + "\n"
+
+    return print_record
+
+#Show all my activities
+def show_all_act():
+    #Create or connect database activity
+    conn = sqlite3.connect('activity.db')
+
+    #Create cursor
+    c = conn.cursor()
+
+    #Mendapatkan semua aktivitas
+    c.execute("SELECT * from activity ORDER BY activityId")
+
+    records = c.fetchall()
+
+    print_record = ''
+    for record in records:
+        print_record += str(record[0]) + " " + record[1] + " " + record[3] + "\n"
+
+    return print_record
 
 #Main program
 app = Application()
