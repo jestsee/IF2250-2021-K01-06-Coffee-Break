@@ -2,11 +2,11 @@ import tkinter as tk
 from tkinter import *
 from PIL import ImageTk, Image
 import sqlite3
-from functions import round_corner
+from activity_list import activity_list
 
 class ActivityPage(tk.Frame):
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent) 
+        tk.Frame.__init__(self, parent)
 
         # #Setting background
         # bg = Image.open("img/background.png")
@@ -69,7 +69,7 @@ class ActivityPage(tk.Frame):
 
 
         #Membuat button add new activity
-        add_act_button = tk.Button(self, text="Add new activity", bg="WHITE")
+        add_act_button = tk.Button(self, text="Add new activity", bg="WHITE", command=add_activity_page)
         add_act_button.config(width=67, height=4)
         add_act_button.place(x=715, y=500)
 
@@ -95,6 +95,138 @@ class Application(tk.Tk):
     def show_frame(self, page):
         frame = self.frames[page]
         frame.tkraise()
+
+#Database
+#Create or connect database activity
+conn = sqlite3.connect('activity.db')
+
+#Create cursor
+c = conn.cursor()
+
+#Create table activity
+c.execute("""
+CREATE TABLE IF NOT EXISTS activity (
+    activityId integer PRIMARY KEY,
+    activityName text,
+    activityDetail text,
+    timestamp text
+)
+""")
+
+#Create add_activity function
+def add_activity():
+    #Create or connect database activity
+    conn = sqlite3.connect('activity.db')
+
+    #Create cursor
+    c = conn.cursor()
+
+    #Insert into table
+    c.execute("INSERT INTO activity VALUES (:act_id, :act_name, :act_detail, :timestamp)",
+    {
+        'act_id': act_id.get(),
+        'act_name': act_name.get(),
+        'act_detail': act_detail.get(),
+        'timestamp': timestamp.get()
+    })
+
+    #Commit changes
+    conn.commit()
+
+    #Close connection
+    conn.close()
+
+    #Clear the text box
+    act_id.delete(0, END)
+    act_name.delete(0, END)
+    act_detail.delete(0, END)
+    timestamp.delete(0, END)
+
+#Create add_activity page
+def add_activity_page():
+    newWindow = Toplevel(app)
+    newWindow.title("Add new activity")
+    newWindow.geometry("390x510")
+    
+    #Add activity 1
+    add_act1_canvas = tk.Canvas(newWindow, bg="WHITE")
+    add_act1_canvas.config(width=350, height=50)
+    add_act1_canvas.place(x=20, y=20)
+    add_act1_canvas.create_text(40, 20, text=activity_list()[0][0])
+    add_act1_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act1_btn.config(width=3, height=2)
+    add_act1_btn.place(x=300, y=27)
+
+    #Add activity 2
+    add_act2_canvas = tk.Canvas(newWindow, bg="WHITE")
+    add_act2_canvas.config(width=350, height=50)
+    add_act2_canvas.place(x=20, y=80)
+    add_act2_canvas.create_text(40, 20, text=activity_list()[1][0])
+    add_act2_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act2_btn.config(width=3, height=2)
+    add_act2_btn.place(x=300, y=87)
+
+    #Add activity 3
+    add_act3_canvas = tk.Canvas(newWindow, bg="WHITE")
+    add_act3_canvas.config(width=350, height=50)
+    add_act3_canvas.place(x=20, y=140)
+    add_act3_canvas.create_text(40, 20, text=activity_list()[2][0])
+    add_act3_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act3_btn.config(width=3, height=2)
+    add_act3_btn.place(x=300, y=147)
+
+    #Add activity 4
+    add_act4_canvas = tk.Canvas(newWindow, bg="WHITE")
+    add_act4_canvas.config(width=350, height=50)
+    add_act4_canvas.place(x=20, y=200)
+    add_act4_canvas.create_text(40, 20, text=activity_list()[3][0])
+    add_act4_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act4_btn.config(width=3, height=2)
+    add_act4_btn.place(x=300, y=207)
+
+    #Add activity 5
+    add_act5_canvas = tk.Canvas(newWindow, bg="WHITE")
+    add_act5_canvas.config(width=350, height=50)
+    add_act5_canvas.place(x=20, y=260)
+    add_act5_canvas.create_text(40, 20, text=activity_list()[4][0])
+    add_act5_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act5_btn.config(width=3, height=2)
+    add_act5_btn.place(x=300, y=267)
+
+    #Add activity 6
+    add_act6_canvas = tk.Canvas(newWindow, bg="WHITE")
+    add_act6_canvas.config(width=350, height=50)
+    add_act6_canvas.place(x=20, y=320)
+    add_act6_canvas.create_text(40, 20, text=activity_list()[5][0])
+    add_act6_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act6_btn.config(width=3, height=2)
+    add_act6_btn.place(x=300, y=327)
+
+    #Add activity 7
+    add_act7_canvas = tk.Canvas(newWindow, bg="WHITE")
+    add_act7_canvas.config(width=350, height=50)
+    add_act7_canvas.place(x=20, y=380)
+    add_act7_canvas.create_text(40, 20, text=activity_list()[6][0])
+    add_act7_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act7_btn.config(width=3, height=2)
+    add_act7_btn.place(x=300, y=387)
+
+    #Add activity 8
+    add_act8_canvas = tk.Canvas(newWindow, bg="WHITE")
+    add_act8_canvas.config(width=350, height=50)
+    add_act8_canvas.place(x=20, y=440)
+    add_act8_canvas.create_text(40, 20, text=activity_list()[7][0])
+    add_act8_btn = tk.Button(newWindow, bg="YELLOW", text="+")
+    add_act8_btn.config(width=3, height=2)
+    add_act8_btn.place(x=300, y=447)
+
+    # print_activity_list = ''
+    # for act in activity_list():
+    #     print_activity_list += act[0] + '\n'
+    #     print_activity_list += act[1] + '\n'
+
+    # act_label = Label(newWindow, text=print_activity_list)
+    # act_label.place(x=10, y=10)
 
 #Main program
 app = Application()
