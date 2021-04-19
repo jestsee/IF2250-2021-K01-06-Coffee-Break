@@ -1,12 +1,12 @@
 class Message : 
-    def __init__(self, id, text, timestamp) : 
-        if(type(id) != int or type(text) != str or type(timestamp) != str ) :
+    def __init__(self, id, content, timestamp) : 
+        if(type(id) != int or type(content) != str or type(timestamp) != str ) :
             raise ValueError("Invalid input for initiating object of type Message") 
         self.__messageId = id
-        self.text = text
+        self.content = content
         self.timestamp = timestamp
     def __str__(self): 
-        return "id : " + str(self.__messageId) + ", content : " + self.text + ", timestamp : " + self.timestamp
+        return "id : " + str(self.__messageId) + ", content : " + self.content + ", timestamp : " + self.timestamp
 
 # # Testing 
 # message = Message(1, "Hey", "There")

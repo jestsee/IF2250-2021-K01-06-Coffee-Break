@@ -3,23 +3,22 @@ import sqlite3
 #  Local Import 
 from Message import Message 
 
-
 class Chat : 
-    def __init__(self, chatId, firstUserId, secondUserId) : 
+    def __init__(self, chatroomId, firstUserId, secondUserId) : 
         if(type(id) != int or type(firstUserId) != int or type(secondUserId) != int ) :
             raise ValueError("Invalid input for initiating object of type chat")
         # Values 
-        self.__chatId = chatId
+        self.__chatroomId = chatroomId
         self.__firstUserId = firstUserId
         self.__secondUserId = secondUserId
 
-    def __init__(self, chatId, firstUserId, secondUserId, messages) : 
-        if(type(chatId) != int or type(firstUserId) != int or type(secondUserId) != int) :
+    def __init__(self, chatroomId, firstUserId, secondUserId, messages) : 
+        if(type(chatroomId) != int or type(firstUserId) != int or type(secondUserId) != int) :
             raise ValueError("Invalid input for initiating object of type chat")
         # Values 
         if(type(messages) != list or ( len(messages) > 0 and type(messages[0]) != Message )) : 
             raise ValueError("Invalid input for initiating object of type chat; messages parameter must be a list of object Message")
-        self.__chatId = chatId
+        self.__chatroomId = chatroomId
         self.__firstUserId = firstUserId
         self.__secondUserId = secondUserId
         self.__messages = messages
@@ -41,10 +40,13 @@ class Chat :
     def fetchMessages(self) : 
         conn = sqlite3.connect('mood.db')
         sql = """
-            SELECT message from Chat , Messages
-            WHERE (Chat.chatId, Messages.chatId) = ({self.__chatId}, {self._chatId})
+            SELECT message from Chat, Messages
+            WHERE (Chat.chatroom, Messages.chatroomId) = ({self.__chatroomId}, {self._chatroomId})
         """
         c = conn.cursor()
+        c.execute(sql);
+        data = c.fetchall
+        print(data)
 
     def sendMessages(self, message) : 
         if(type(message) != Message) : 

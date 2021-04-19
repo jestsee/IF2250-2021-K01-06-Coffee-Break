@@ -17,14 +17,27 @@ CREATE TABLE IF NOT EXISTS activity (
 
 # Create Jurnal Table
 c.execute("""CREATE TABLE IF NOT EXISTS jurnal(
-        moodId integer,
+        moodId integer PRIMARY KEY,
         date text,
         mood_record text,
         notes text
 ) """)
 
+# Create Chat Table 
+c.execute("""CREATE TABLE IF NOT EXISTS chatroom(
+        chatroomId integer PRIMARY KEY,
+        firstUserId integer,
+        secondUserId integer,
+) """)
 
-# c.execute("DELETE FROM activity")
+# Create Message Table 
+c.execute("""CREATE TABLE IF NOT EXISTS message(
+        messageId integer PRIMARY KEY,
+        content VARCHAR(255),
+        timestamp DATETIME,
+        chatroomId integer,
+        FOREIGN KEY (chatroomId) REFERENCES chatroom(chatroomId)
+) """)
 
 #Commit changes
 conn.commit()
