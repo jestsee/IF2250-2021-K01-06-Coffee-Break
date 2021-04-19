@@ -29,6 +29,8 @@ c.execute("""CREATE TABLE IF NOT EXISTS jurnal(
 
 conn.commit()
 
+# Memperoleh jurnal dari hari tertentu
+
 def getTheDataFromDay(i):
     conn = sqlite3.connect('mood.db')
     sql = "Select * from jurnal where date=?"
@@ -42,6 +44,8 @@ def getTheDataFromDay(i):
         return row
     conn.close()
 
+# Halaman kiri
+
 def initPage():
     if(getTheDataFromDay(0)==None):
         lbl = tk.Label(win, text="You haven't added any mood yet!",width=50, height=10).grid(column=100,row=0)
@@ -52,11 +56,11 @@ def initPage():
         lbl1.grid(column=100,row=0)
         lbl2 = tk.Label(win, text=getTheDataFromDay(0)[2], padx=50,pady=15)
         lbl2.grid(column=100,row=1)
-        #button = tk.Button(win,image=photo,padx=5,pady=5).grid(column=100,row=2) # CARA RESIZENYA GMN
+        #button = tk.Button(win,image=photo,padx=5,pady=5).grid(column=100,row=2)
         if(getTheDataFromDay(0)[3]==None):
-            journal = tk.Button(win,text="Wanna add some journal?",command=lambda:[AddJournal(),switch(journal)], padx=50,pady=15)
-            editmood = tk.Button(win,text="Edit Mood?",command=lambda:[editMood(),switch(editmood),switch(lbl2)], padx=5,pady=5)
-            journalShow = journal.grid(column=100,row=2)
+            journal = tk.Button(win,text="Wanna add some journal?",command=lambda:[AddJournal(),switch(journal),switch(editmood)], padx=50,pady=15)
+            editmood = tk.Button(win,text="Edit Mood?",command=lambda:[editMood(),switch(editmood),switch(lbl2),switch(journal)], padx=5,pady=5)
+            journalShow = journal.grid(column=100,row=6)
         else:
             x = getTheDataFromDay(0)
             journal= tk.Label(win,text=getTheDataFromDay(0)[3],padx=50,pady=15)
@@ -65,6 +69,8 @@ def initPage():
             editjournal.grid(column=100,row=4)
             editmood = tk.Button(win,text="Edit Mood?",command=lambda:[editMood(),switch(editmood),switch(lbl2),switch(editjournal),switch(journal)], padx=5,pady=5)
         editmood.grid(column=100,row=2)
+
+# Halaman kanan
 
 def sidePage():
     threeDays = tk.Label(win, text="Last 3 days overview!",padx=50,pady=15).grid(column=200,row=0)
@@ -83,6 +89,8 @@ def sidePage():
         else:
             firstDay = tk.Label(win,text="No entry yet",padx=50,pady=15).grid(column=200,row=i)
 
+# Menampilkan jurnal yang dipilih
+
 def journalPage(x):
     win1 = tk.Tk()
     win1.title("Journal")
@@ -93,8 +101,12 @@ def journalPage(x):
     journal.grid(column=100,row=1)
     goBack = tk.Button(win1,text="Close",command=lambda:[destroy(win1)],padx=15,pady=10).grid(column=100,row=2)
 
+# Tutup jendela
+
 def destroy(win1):
     win1.destroy()
+
+# Edit jurnal yang dipilih
 
 def editJournal():
     lbl = tk.Label(win, text="Edit your journal here",width=50,height=10).grid(column=100,row=0)
@@ -102,6 +114,8 @@ def editJournal():
     entry_widget_1 = tk.Entry(win, textvariable=entry_1).grid(column=100,row=1)
     submit = tk.Button(win,text="Submit",command=lambda: [getJournal(entry_1.get()),switch(submit)])
     submitShow = submit.grid(column=100,row=2)
+
+# Tampilan edit mood
 
 def editMood():
     veryBad = tk.Button(win,text="Very Bad",command=lambda: [editMoodDatabase("Very Bad"),switch(veryBad),switch(bad),switch(flat),switch(happy),switch(veryHappy)],padx=50,pady=15)
@@ -115,6 +129,8 @@ def editMood():
     veryHappy = tk.Button(win,text="Very Happy",command= lambda: [editMoodDatabase("Very Happy"),switch(veryBad),switch(bad),switch(flat),switch(happy),switch(veryHappy)],padx=50,pady=15)
     veryHappy.grid(column=100,row=5)
 
+# Perubahan database setelah dipilih edit mood
+
 def editMoodDatabase(text):
     conn = sqlite3.connect('mood.db')
     sql = "Update jurnal set mood_record=? where date=?"
@@ -125,6 +141,8 @@ def editMoodDatabase(text):
     conn.commit()
     initPage()
     sidePage()
+
+# Perubahan database setelah dipilih edit journal
 
 def editJournalDatabase(text):
     conn = sqlite3.connect('mood.db')
@@ -137,6 +155,8 @@ def editJournalDatabase(text):
     initPage()
     sidePage()
 
+# Setelah opsi add mood dipilih
+
 def click():
     veryBad = tk.Button(win,text="Very Bad",command=lambda: [NextSection("Very Bad"),switch(veryBad),switch(bad),switch(flat),switch(happy),switch(veryHappy)],padx=50,pady=15)
     veryBad.grid(column=100,row=1)
@@ -148,6 +168,8 @@ def click():
     happy.grid(column=100,row=4)
     veryHappy = tk.Button(win,text="Very Happy",command= lambda: [NextSection("Very Happy"),switch(veryBad),switch(bad),switch(flat),switch(happy),switch(veryHappy)],padx=50,pady=15)
     veryHappy.grid(column=100,row=5)
+
+# Memasukkan mood ke database
 
 def NextSection(text):
     global mood
@@ -162,12 +184,16 @@ def NextSection(text):
     initPage()
     sidePage()
 
+# Menambahkan mood
+
 def AddJournal():
     lbl = tk.Label(win, text="Write your journal here",width=50,height=10).grid(column=100,row=0)
     entry_1 = tk.StringVar()
     entry_widget_1 = tk.Entry(win, textvariable=entry_1).grid(column=100,row=1)
     submit = tk.Button(win,text="Submit",command=lambda: [getJournal(entry_1.get()),switch(submit)])
     submitShow = submit.grid(column=100,row=2)
+
+# Menambahkan jurnal ke database
 
 def getJournal(text):
     conn = sqlite3.connect('mood.db')
@@ -180,8 +206,12 @@ def getJournal(text):
     initPage()
     sidePage()
 
+# Menghilangkan tampilan suatu button
+
 def switch(b1):
     b1.grid_forget()
+
+# Mengeluarkan page
 
 initPage()
 sidePage()
