@@ -27,7 +27,7 @@ c.execute("""CREATE TABLE IF NOT EXISTS jurnal(
 c.execute("""CREATE TABLE IF NOT EXISTS chatroom(
         chatroomId integer PRIMARY KEY,
         firstUserId integer,
-        secondUserId integer,
+        secondUserId integer
 ) """)
 
 # Create Message Table 

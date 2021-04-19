@@ -4,6 +4,11 @@ import sqlite3
 from Message import Message 
 
 class Chat : 
+    __connectToChatroomTable = """
+        SELECT messageId,content,timestamp,chatroomId, FROM chatroom, message
+        WHERE (chatroom.chatroomId, message.chatroomId) = ({self.__chatroomId}, {self.__chatroomId})
+    """
+
     def __init__(self, chatroomId, firstUserId, secondUserId) : 
         if(type(id) != int or type(firstUserId) != int or type(secondUserId) != int ) :
             raise ValueError("Invalid input for initiating object of type chat")
@@ -38,22 +43,19 @@ class Chat :
 
     # Database Related Methods
     def fetchMessages(self) : 
-        conn = sqlite3.connect('mood.db')
-        sql = """
-            SELECT message from Chat, Messages
-            WHERE (Chat.chatroom, Messages.chatroomId) = ({self.__chatroomId}, {self._chatroomId})
-        """
+        conn = sqlite3.connect('../../Backend/storage.db')
+        
         c = conn.cursor()
-        c.execute(sql);
+        c.execute(self.__connectToChatroomTable);
         data = c.fetchall
         print(data)
 
     def sendMessages(self, message) : 
         if(type(message) != Message) : 
             raise ValueError("Invalid argument for sending message.")
-        conn = sqlite3.connect('storage.db')
-        sql = "Select * from jurnal where date=?"
+        conn = sqlite3.connect('../../Backend/storage.db')
         c = conn.cursor()
+        
 
 
 
@@ -63,4 +65,4 @@ chat = Chat(12, 12, 12, [message])
 chat.printMessages();
 
 
-    
+
