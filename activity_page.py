@@ -10,19 +10,11 @@ class ActivityPage(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        # #Setting background
-        # bg = Image.open("img/background.png")
-        # bg = bg.resize((int(bg.size[0]*1.6), int(bg.size[1]*1.6)))
-        # bg = ImageTk.PhotoImage(bg)
-        # bg_label = tk.Label(self, image=bg, bg="white")
-        # bg_label.image = bg
-        # bg_label.place(x=0,y=0)
-
         #Membuat side kiri
         Label = tk.Label(self, text="Here's what we got for you", font=("Helvetica Bold", 15))
         Label.place(x=35, y=10)
 
-        left_canvas = tk.Canvas(self, bg="BLUE")
+        left_canvas = tk.Canvas(self, bg="GREY")
         left_canvas.config(width=550, height=550)
         left_canvas.place(x=35, y=60)
 
@@ -67,7 +59,7 @@ class ActivityPage(tk.Frame):
         act5_btn.place(x=400, y=50)
 
         #Membuat side kanan
-        right_canvas = tk.Canvas(self, bg="BLUE")
+        right_canvas = tk.Canvas(self, bg="GREY")
         right_canvas.config(width=550, height=550)
         right_canvas.place(x=680, y=60)
 
@@ -133,7 +125,7 @@ def add_activity(no_act):
     #Insert into table
     c.execute("INSERT INTO activity VALUES (:act_id, :act_name, :act_detail, :timestamp)",
     {
-        'act_id': num_row,
+        'act_id': num_row+1,
         'act_name': activity_list()[no_act][0],
         'act_detail': activity_list()[no_act][1],
         'timestamp': now_string
@@ -145,37 +137,29 @@ def add_activity(no_act):
     #Close connection
     conn.close()
 
-def test_add_activity1():
+def add_activity1():
     add_activity(0)
-    assert get_last_record()[0][1] == activity_list()[0][0]
 
-def test_add_activity2():
+def add_activity2():
     add_activity(1)
-    assert get_last_record()[0][1] == activity_list()[1][0]
 
-def test_add_activity3():
+def add_activity3():
     add_activity(2)
-    assert get_last_record()[0][1] == activity_list()[2][0]
 
-def test_add_activity4():
+def add_activity4():
     add_activity(3)
-    assert get_last_record()[0][1] == activity_list()[3][0]
 
-def test_add_activity5():
+def add_activity5():
     add_activity(4)
-    assert get_last_record()[0][1] == activity_list()[4][0]
 
-def test_add_activity6():
+def add_activity6():
     add_activity(5)
-    assert get_last_record()[0][1] == activity_list()[5][0]
 
-def test_add_activity7():
+def add_activity7():
     add_activity(6)
-    assert get_last_record()[0][1] == activity_list()[6][0]
 
-def test_add_activity8():
+def add_activity8():
     add_activity(7)
-    assert get_last_record()[0][1] == activity_list()[7][0]
 
 #Create add activity page
 def add_activity_page():
@@ -188,7 +172,7 @@ def add_activity_page():
     add_act1_canvas.config(width=350, height=50)
     add_act1_canvas.place(x=20, y=20)
     add_act1_canvas.create_text(40, 20, text=activity_list()[0][0])
-    add_act1_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=test_add_activity1)
+    add_act1_btn = tk.Button(newWindow, bg="GREY", text="+", command=add_activity1)
     add_act1_btn.config(width=3, height=2)
     add_act1_btn.place(x=300, y=27)
 
@@ -197,7 +181,7 @@ def add_activity_page():
     add_act2_canvas.config(width=350, height=50)
     add_act2_canvas.place(x=20, y=80)
     add_act2_canvas.create_text(40, 20, text=activity_list()[1][0])
-    add_act2_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=test_add_activity2)
+    add_act2_btn = tk.Button(newWindow, bg="GREY", text="+", command=add_activity2)
     add_act2_btn.config(width=3, height=2)
     add_act2_btn.place(x=300, y=87)
 
@@ -206,7 +190,7 @@ def add_activity_page():
     add_act3_canvas.config(width=350, height=50)
     add_act3_canvas.place(x=20, y=140)
     add_act3_canvas.create_text(40, 20, text=activity_list()[2][0])
-    add_act3_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=test_add_activity3)
+    add_act3_btn = tk.Button(newWindow, bg="GREY", text="+", command=add_activity3)
     add_act3_btn.config(width=3, height=2)
     add_act3_btn.place(x=300, y=147)
 
@@ -215,7 +199,7 @@ def add_activity_page():
     add_act4_canvas.config(width=350, height=50)
     add_act4_canvas.place(x=20, y=200)
     add_act4_canvas.create_text(40, 20, text=activity_list()[3][0])
-    add_act4_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=test_add_activity4)
+    add_act4_btn = tk.Button(newWindow, bg="GREY", text="+", command=add_activity4)
     add_act4_btn.config(width=3, height=2)
     add_act4_btn.place(x=300, y=207)
 
@@ -224,7 +208,7 @@ def add_activity_page():
     add_act5_canvas.config(width=350, height=50)
     add_act5_canvas.place(x=20, y=260)
     add_act5_canvas.create_text(40, 20, text=activity_list()[4][0])
-    add_act5_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=test_add_activity5)
+    add_act5_btn = tk.Button(newWindow, bg="GREY", text="+", command=add_activity5)
     add_act5_btn.config(width=3, height=2)
     add_act5_btn.place(x=300, y=267)
 
@@ -233,7 +217,7 @@ def add_activity_page():
     add_act6_canvas.config(width=350, height=50)
     add_act6_canvas.place(x=20, y=320)
     add_act6_canvas.create_text(40, 20, text=activity_list()[5][0])
-    add_act6_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=test_add_activity6)
+    add_act6_btn = tk.Button(newWindow, bg="GREY", text="+", command=add_activity6)
     add_act6_btn.config(width=3, height=2)
     add_act6_btn.place(x=300, y=327)
 
@@ -242,7 +226,7 @@ def add_activity_page():
     add_act7_canvas.config(width=350, height=50)
     add_act7_canvas.place(x=20, y=380)
     add_act7_canvas.create_text(40, 20, text=activity_list()[6][0])
-    add_act7_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=test_add_activity7)
+    add_act7_btn = tk.Button(newWindow, bg="GREY", text="+", command=add_activity7)
     add_act7_btn.config(width=3, height=2)
     add_act7_btn.place(x=300, y=387)
 
@@ -251,7 +235,7 @@ def add_activity_page():
     add_act8_canvas.config(width=350, height=50)
     add_act8_canvas.place(x=20, y=440)
     add_act8_canvas.create_text(40, 20, text=activity_list()[7][0])
-    add_act8_btn = tk.Button(newWindow, bg="YELLOW", text="+", command=test_add_activity8)
+    add_act8_btn = tk.Button(newWindow, bg="GREY", text="+", command=add_activity8)
     add_act8_btn.config(width=3, height=2)
     add_act8_btn.place(x=300, y=447)
 
@@ -314,7 +298,7 @@ def show_top3_act():
 
     print_record = ''
     for record in records:
-        print_record += str(record[0]) + " " + record[1] + " " + record[3] + "\n"
+        print_record += record[1] + " - " + record[3] + "\n"
 
     if print_record == '':
         print_record = "Belum ada aktivitas yang dilakukan"
@@ -343,41 +327,6 @@ def show_all_act():
 
     return print_record
 
-#Testing using PyTest
-def test_show_top3_act():
-    #Create or connect database activity
-    conn = sqlite3.connect('activity.db')
-
-    #Create cursor
-    c = conn.cursor()
-
-    #Menghitung jumlah record
-    c.execute("SELECT COUNT(*) from activity")
-    num_row = c.fetchone()[0]
-
-    if (num_row == 0):
-        assert show_top3_act() == "Belum ada aktivitas yang dilakukan"
-    else:
-        #Mengetes bener tidak current activitesnya hanya ditampilkan < 3
-        assert show_top3_act().count("\n") <= 3
-
-def test_show_all_act():
-    #Create or connect database activity
-    conn = sqlite3.connect('activity.db')
-
-    #Create cursor
-    c = conn.cursor()
-
-    #Menghitung jumlah record
-    c.execute("SELECT COUNT(*) from activity")
-    num_row = c.fetchone()[0]
-
-    if (num_row == 0):
-        assert show_all_act() == "Tidak ada riwayat aktivitas"
-    else:
-        #Mengetes bener tidak yang ditampilkan itu semua aktivitas yang sudah tercatat
-        assert (show_all_act().count("\n") == num_row)
-
 def get_last_record():
     #Create or connect database activity
     conn = sqlite3.connect('activity.db')
@@ -389,7 +338,7 @@ def get_last_record():
     c.execute("SELECT * from activity ORDER BY activityId desc LIMIT 1")
     records = c.fetchall()
 
-    return records
+    return records[0][1]
 
 #Main program
 #Create or connect database activity
