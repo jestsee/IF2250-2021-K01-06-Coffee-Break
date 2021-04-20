@@ -36,6 +36,7 @@ class ChatroomPage(tk.Frame):
                 self.chatWindow.insert(1.0, "")
                 continue
             self.chatWindow.insert(INSERT, Message[1] + "\n")
+            print(Message[1])
             # if(check) : 
             #     time.sleep(1)
     def sendMessage(self, message) : 
@@ -46,7 +47,10 @@ class ChatroomPage(tk.Frame):
                 raise ValueError("Message input cannot be an empty string")
             chatroom_db.sendMessage(self.__currentChatroomId, message)
             self.messageBox.delete(0, END)
-            self.displayMessages(True)
+            Messages = chatroom_db.fetchMessages(self.__currentChatroomId)
+            self.__currentChatroom.setMessages(Messages)
+            print(self.__currentChatroom.getMessages())
+            self.displayMessages()
         except ValueError : 
             print("Exception")
         

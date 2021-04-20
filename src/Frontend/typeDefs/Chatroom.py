@@ -41,8 +41,13 @@ class Chatroom :
     def getSecondUserId(self) : 
         return self.__secondUserId
 
+    # def setMessages(self, messages):
+    #     if(type(messages) != list or ( len(messages) > 0 and type(messages[0]) != Message )) : 
+    #         raise ValueError("Invalid input for setting messages on chat. Messages attribute must be a list of object Message")
+    #     self.__messages = messages; 
+
     def setMessages(self, messages):
-        if(type(messages) != list or ( len(messages) > 0 and type(messages[0]) != Message )) : 
+        if(type(messages) != list) : 
             raise ValueError("Invalid input for setting messages on chat. Messages attribute must be a list of object Message")
         self.__messages = messages; 
     
