@@ -8,6 +8,3 @@ class Message :
     def __str__(self): 
         return "id : " + str(self.__messageId) + ", content : " + self.content + ", timestamp : " + self.timestamp
 
-# # Testing 
-# message = Message(1, "Hey", "There")
-# print(type(message) == Message)
