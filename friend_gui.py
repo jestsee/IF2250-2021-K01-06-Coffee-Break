@@ -180,7 +180,7 @@ class FriendPage(tk.Frame):
     def searchbutton_command(self):
         # reset result
         self.searchresult.delete(0,"end")
-        res = []
+        self.res = []
         # get query
         query = self.searchbox.get()
         for user in u.get_user_by_all(query):
@@ -211,8 +211,6 @@ class FriendPage(tk.Frame):
             #self.friendl.append(self.res[index[0]])
             self.refresh_friendlist()
             print(self.friendl)
-            msg = "Kamu telah menambahkan "+self.res[index[0]].get_nama() + " sebagai teman"
-            tkinter.messagebox.showinfo("Selamat",msg)
 
         else:
             tkinter.messagebox.showinfo("Error","Kamu belum memilih teman untuk ditambahkan")
@@ -224,11 +222,13 @@ class FriendPage(tk.Frame):
             frenid = u.get_id(self.friendl[index[0]])
             print(u.delete_friend(2,frenid))
             self.friendlist.delete((index))
+            self.refresh_friendlist()
         except IndexError:
             index = -99
             tkinter.messagebox.showinfo("Error","Kamu belum memilih teman untuk dihapus")
 
     def refresh_friendlist(self):
+        self.friendlist.delete(0,"end")
         self.friendl=[]
         for user in u.get_friends(2):
             self.friendl.append(user)
@@ -288,12 +288,5 @@ class Application(tk.Tk):
         frame.tkraise()
 
 if __name__ == "__main__":
-    # root = tk.Tk()
-    # app = App(root)
-    # frame = Frame(root)
-    # frame.pack()
-    # frame.tkraise()
-    # root.mainloop()
-
     app = Application()
     app.mainloop()

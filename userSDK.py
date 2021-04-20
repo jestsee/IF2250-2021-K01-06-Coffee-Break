@@ -159,5 +159,10 @@ def get_user_by_all(query):
 # test = user("anto","jakarta","bobo")
 # print(get_id(test))
 
-# print(get_user_by_id(2))
+# print(get_user_by_id(get_last_row_id()))
 # print(get_friends(2))
+
+############################
+
+# user = get_user_by_id(get_last_row_id())
+# print(user)
