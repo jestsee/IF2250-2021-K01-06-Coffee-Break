@@ -13,8 +13,6 @@ c.execute('''CREATE TABLE IF NOT EXISTS user
              dom TEXT, 
              hobi TEXT)''')
 
-c.execute("DROP TABLE teman")
-
 # Create table buat nampung data teman yg fk nya references ke table user
 c.execute('''CREATE TABLE IF NOT EXISTS teman
              (user_id1 INTEGER, user_id2 INTEGER,
@@ -70,11 +68,14 @@ def get_id(user):
 
 # menambahkan userid1 dan userid2 ke tabel teman
 def add_friend(myid, friendid):
-    c = cursor()
-    with c.connection:
-        c.execute("INSERT INTO teman (user_id1,user_id2) VALUES (?, ?)", (myid, friendid))
-    c.connection.close()
-    return c.lastrowid
+    try:
+        c = cursor()
+        with c.connection:
+            c.execute("INSERT INTO teman (user_id1,user_id2) VALUES (?, ?)", (myid, friendid))
+        c.connection.close()
+        return c.lastrowid
+    except:
+        return -99
 
 # get user by id
 def get_user_by_id(id):
@@ -139,21 +140,24 @@ def get_user_by_all(query):
     c.connection.close()
     return friends
 
-''' driver '''
+''' driver ( sementara kalo mau nambahin user, lewat sini dulu )'''
+# print("buat nambahin user ke database")
 # nama = input("Masukan nama : ")
 # dom = input("Masukan domisili : ")
 # hobi = input("Masukan hobi : ")
 # u = user(nama,dom,hobi)
 # print(add_user(u))
 
+############################
+
 # cek database sementara
-print(get_raw_data())
-print(get_last_row_id())
-print(get_users())
+# print(get_raw_data())
+# print(get_last_row_id())
+# print(get_users())
 # print(get_user_by_all('a'))
 
 # test = user("anto","jakarta","bobo")
 # print(get_id(test))
 
-print(get_user_by_id(2))
-print(get_friends(2))
+# print(get_user_by_id(2))
+# print(get_friends(2))

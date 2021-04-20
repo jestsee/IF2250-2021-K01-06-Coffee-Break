@@ -24,5 +24,9 @@ class user():
     # #This is the recommended way if mutable (like it is here):
     __hash__ = None
 
+    # get nama
+    def get_nama(self):
+        return self.nama
+
     def __repr__(self): #added to make list of items invoke str
         return self.__str__()
