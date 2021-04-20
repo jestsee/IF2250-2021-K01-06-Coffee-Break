@@ -15,8 +15,9 @@ def test_editMoodDatabase():
     val = (strDay,)
     c.execute(sql,val)
     rows = c.fetchall()
-    x = rows[0]
-    assert x[2]=="Happy"
+    if(len(rows)>0):
+        x = rows[0]
+        assert x[2]=="Happy"
 
 def test_editJournalDatabase():
     conn = sqlite3.connect('mood.db')
@@ -28,8 +29,9 @@ def test_editJournalDatabase():
     val = (strDay,)
     c.execute(sql,val)
     rows = c.fetchall()
-    x = rows[0]
-    assert x[3]=="Jurnal"
+    if(len(rows)>0):
+        x = rows[0]
+        assert x[3]=="Jurnal"
 
 def test_NextSection1():
     conn = sqlite3.connect('mood.db')
