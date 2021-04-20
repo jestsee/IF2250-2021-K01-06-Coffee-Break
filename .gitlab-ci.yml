@@ -7,4 +7,4 @@ build-job:
   stage: test
   script:
     - echo "Testing is being run"
-    - pytest -q Test/Chatroom_test.py
+    - pytest -v ./Test/Chatroom_test.py
