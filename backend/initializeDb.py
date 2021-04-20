@@ -25,17 +25,17 @@ c.execute("""CREATE TABLE IF NOT EXISTS jurnal(
 
 # Create Chat Table 
 c.execute("""CREATE TABLE IF NOT EXISTS chatroom(
-        chatroomId integer PRIMARY KEY,
+        chatroomId VARCHAR(50) PRIMARY KEY NOT NULL,
         firstUserId integer,
         secondUserId integer
 ) """)
 
 # Create Message Table 
 c.execute("""CREATE TABLE IF NOT EXISTS message(
-        messageId integer PRIMARY KEY,
+        messageId VARCHAR(50) PRIMARY KEY NOT NULL,
         content VARCHAR(255),
-        timestamp DATETIME,
-        chatroomId integer,
+        timestamp DATETIME NOT NULL,
+        chatroomId integer NOT NULL,
         FOREIGN KEY (chatroomId) REFERENCES chatroom(chatroomId)
 ) """)
 
