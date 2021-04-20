@@ -17,28 +17,30 @@ class ChatroomPage(tk.Frame):
         
         self.username.grid(row = 0, sticky = "nsew", pady = 2)
         
-        self.chatWindow = Text(self, height=10, width=100)
-        self.chatWindow.grid(row = 1, columnspan = 2, pady = 10, padx = 20)
+        self.chatWindow = Text(self, height=10, width=100, padx = 10, pady = 5)
+        self.chatWindow.grid(
+            row = 1, columnspan = 2, 
+            pady = 10, padx = 20, 
+            ipadx = 20)
+        # self.chatWindow.config(state=DISABLED)
         # chatWindow.place(relheight = 0.745,relwidth = 1,rely = 0.08)
         self.displayMessages()
         
-        self.messageBox = Entry(self)
+        self.messageBox = Entry(self, width = 50)
         self.sendMessageButton = Button(self, text="send", padx = 15, command = lambda : self.sendMessage(self.messageBox.get()))
         
-        self.messageBox.grid(row = 2, column = 0, sticky = W, pady = 10, padx = 20)
-        self.sendMessageButton.grid(row = 2, column = 1, sticky = W, pady = 10, padx = 5)
+        self.messageBox.grid(row = 2, column = 0, pady = 10, padx = 20)
+        self.sendMessageButton.grid(row = 2, column = 1, pady = 10, padx = 5)
     
     def displayMessages(self, check = False) :
         Messages = self.__currentChatroom.getMessages()
         self.chatWindow.delete("1.0","end")
         for idx, Message in enumerate(Messages) : 
-            if(idx == 0) : 
-                self.chatWindow.insert(1.0, "")
-                continue
-            self.chatWindow.insert(INSERT, Message[1] + "\n")
-            print(Message[1])
-            # if(check) : 
-            #     time.sleep(1)
+            # if(idx == 0) : 
+            #     self.chatWindow.insert(1.0, "")
+            #     continue
+            self.chatWindow.insert(INSERT, Message[1] + " " + Message[2] + "\n")
+
     def sendMessage(self, message) : 
         if(type(message) != str) : 
             raise ValueError("Invalid type") 
@@ -49,7 +51,6 @@ class ChatroomPage(tk.Frame):
             self.messageBox.delete(0, END)
             Messages = chatroom_db.fetchMessages(self.__currentChatroomId)
             self.__currentChatroom.setMessages(Messages)
-            print(self.__currentChatroom.getMessages())
             self.displayMessages()
         except ValueError : 
             print("Exception")

@@ -1,0 +1,10 @@
+build-job:
+  stage: build
+  script:
+    - echo "Hello, Chatroom Class is being builded"
+    - python -m pip install --upgrade pip
+    - py -m Frontend.typeDefs.Chatroom
+  stage : test
+  script :
+    - echo "Testing is being run"
+    - pytest -q Test/Chatroom_test.py

@@ -30,6 +30,8 @@ import uuid
 __currentChatroomId = "194682b6-cac9-4b35-88f2-955a0519ed36"
 __chatroom = Chatroom(__currentChatroomId, 20, 10)
 
+# chatroom_db.clearChatroomMessages(__currentChatroomId)
+
 chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
 chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
 chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
@@ -43,5 +45,3 @@ def test_sendMessage() :
             print(content)
 
 test_sendMessage()
-
-# chatroom_db.clearChatroomMessages(__currentChatroomId)
