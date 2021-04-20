@@ -1,6 +1,8 @@
-from activity_page import show_all_act, show_top3_act, add_activity
+from activity_page import show_all_act, show_top3_act, add_activity, get_detail_act, randomize_recommendation
+from activity_list import activity_list
 import sqlite3
 import pytest
+import tkinter as tk
 
 #Testing using PyTest
 def test_show_top3_act():
@@ -58,6 +60,7 @@ def test_add_activity():
 
     assert last_record_after != last_record_before
 
+    #Menghapus record yang ditambah untuk testing
     c.execute("DELETE FROM activity WHERE activityId = (SELECT MAX(activityId) FROM activity)")
 
     #Commit changes
@@ -65,3 +68,12 @@ def test_add_activity():
 
     #Close connection
     conn.close()
+
+def test_get_detail_act():
+    assert get_detail_act(0) == activity_list()[0][0] + '\n' + activity_list()[0][1] + '\n'
+
+def test_randomize_recommendation():
+    before = randomize_recommendation()
+    after = randomize_recommendation()
+
+    assert before != after

@@ -5,6 +5,14 @@ import sqlite3
 from activity_list import activity_list
 from datetime import datetime
 import pytest
+import random
+
+#Randomize recommendation
+def randomize_recommendation():
+    result = random.sample(range(0,7), 5)
+    return result
+
+random_list = randomize_recommendation()
 
 class ActivityPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -22,7 +30,7 @@ class ActivityPage(tk.Frame):
         act1_canvas = tk.Canvas(self, bg="WHITE")
         act1_canvas.config(width=475, height=80)
         act1_canvas.place(x=70, y=80)
-        act1_canvas.create_text(120, 40, text=activity_list()[0][0])
+        act1_canvas.create_text(120, 40, text=activity_list()[random_list[0]][0])
         act1_btn = tk.Button(act1_canvas, text="See Details", command=activity1_detail_page)
         act1_btn.place(x=400, y=50)
 
@@ -30,7 +38,7 @@ class ActivityPage(tk.Frame):
         act2_canvas = tk.Canvas(self, bg="WHITE")
         act2_canvas.config(width=475, height=80)
         act2_canvas.place(x=70, y=180)
-        act2_canvas.create_text(120, 40, text=activity_list()[5][0])
+        act2_canvas.create_text(120, 40, text=activity_list()[random_list[1]][0])
         act2_btn = tk.Button(act2_canvas, text="See Details", command=activity2_detail_page)
         act2_btn.place(x=400, y=50)
 
@@ -38,7 +46,7 @@ class ActivityPage(tk.Frame):
         act3_canvas = tk.Canvas(self, bg="WHITE")
         act3_canvas.config(width=475, height=80)
         act3_canvas.place(x=70, y=280)
-        act3_canvas.create_text(120, 40, text=activity_list()[3][0])         
+        act3_canvas.create_text(120, 40, text=activity_list()[random_list[2]][0])         
         act3_btn = tk.Button(act3_canvas, text="See Details", command=activity3_detail_page)
         act3_btn.place(x=400, y=50)
 
@@ -46,7 +54,7 @@ class ActivityPage(tk.Frame):
         act4_canvas = tk.Canvas(self, bg="WHITE")
         act4_canvas.config(width=475, height=80)
         act4_canvas.place(x=70, y=380)
-        act4_canvas.create_text(120, 40, text=activity_list()[1][0]) 
+        act4_canvas.create_text(120, 40, text=activity_list()[random_list[3]][0]) 
         act4_btn = tk.Button(act4_canvas, text="See Details", command=activity4_detail_page)
         act4_btn.place(x=400, y=50)
 
@@ -54,9 +62,13 @@ class ActivityPage(tk.Frame):
         act5_canvas = tk.Canvas(self, bg="WHITE")
         act5_canvas.config(width=475, height=80)
         act5_canvas.place(x=70, y=480)
-        act5_canvas.create_text(120, 40, text=activity_list()[4][0]) 
+        act5_canvas.create_text(120, 40, text=activity_list()[random_list[4]][0]) 
         act5_btn = tk.Button(act5_canvas, text="See Details", command=activity5_detail_page)
         act5_btn.place(x=400, y=50)
+
+        #Membuat button scroll
+        scroll_btn = tk.Button(self, text="Scroll", command=randomize_recommendation)
+        scroll_btn.place(x=280, y=575)
 
         #Membuat side kanan
         right_canvas = tk.Canvas(self, bg="GREY")
@@ -105,6 +117,37 @@ class Application(tk.Tk):
     def show_frame(self, page):
         frame = self.frames[page]
         frame.tkraise()
+
+#Getting activity detail
+def get_detail_act(idx):
+    return activity_list()[idx][0] + '\n' + activity_list()[idx][1] + '\n'
+
+#Create activity detail page
+def activity_detail_page(idx):
+    new = Toplevel(app)
+    new.title("Detail Activity of " + activity_list()[idx][0])
+    new.geometry("800x100")
+
+    detail_act = get_detail_act(idx)
+
+    label = tk.Label(new, text=detail_act, justify=CENTER)
+    label.place(x=10, y=10)
+
+def activity1_detail_page():
+    activity_detail_page(random_list[0])
+
+def activity2_detail_page():
+    activity_detail_page(random_list[1])
+
+def activity3_detail_page():
+    activity_detail_page(random_list[2])
+
+def activity4_detail_page():
+    activity_detail_page(random_list[3])
+
+def activity5_detail_page():
+    activity_detail_page(random_list[4])
+
 
 #Create add_activity function with PyTest inside it
 def add_activity(no_act):
@@ -248,32 +291,6 @@ def all_activity_page():
     label = tk.Label(newWindow, text=show_all_act())
     label.place(x=10, y=10)
 
-#Create activity detail page
-def activity_detail_page(idx):
-    new = Toplevel(app)
-    new.title("Detail Activity of " + activity_list()[idx][0])
-    new.geometry("800x100")
-
-    detail_act = activity_list()[idx][0] + '\n' + activity_list()[idx][1] + '\n'
-
-    label = tk.Label(new, text=detail_act, justify=CENTER)
-    label.place(x=10, y=10)
-
-def activity1_detail_page():
-    activity_detail_page(0)
-
-def activity2_detail_page():
-    activity_detail_page(5)
-
-def activity3_detail_page():
-    activity_detail_page(3)
-
-def activity4_detail_page():
-    activity_detail_page(1)
-
-def activity5_detail_page():
-    activity_detail_page(4)
-
 #Show 3 current activities
 def show_top3_act():
     #Create or connect database activity
@@ -327,6 +344,7 @@ def show_all_act():
 
     return print_record
 
+#Mendapatkan last record
 def get_last_record():
     #Create or connect database activity
     conn = sqlite3.connect('activity.db')
