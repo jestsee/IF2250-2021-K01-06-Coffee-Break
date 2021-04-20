@@ -4,6 +4,7 @@
     Python file to define the Chatroom datatype
 '''
 
+import Backend.chatroom as chatroom_db
 from Frontend.typeDefs.Message import Message 
 from datetime import datetime
 
@@ -18,7 +19,7 @@ class Chatroom :
         self.__chatroomId = chatroomId
         self.__firstUserId = firstUserId
         self.__secondUserId = secondUserId
-        self.__messages = messages
+        self.__messages = chatroom_db.fetchMessages(self.__chatroomId) if messages == [] else messages
     
     # General Methods 
     def setFirstUserId(self, firstUserId) : 
@@ -45,12 +46,14 @@ class Chatroom :
             raise ValueError("Invalid input for setting messages on chat. Messages attribute must be a list of object Message")
         self.__messages = messages; 
     
+    def getMessages(self) : 
+        return self.__messages
     
     def printMessages(self) : 
         '''result : Printing messages to the command line'''
         for message in self.__messages : 
             print(message);
-    
+
 
     
 

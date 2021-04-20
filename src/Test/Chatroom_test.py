@@ -17,6 +17,7 @@ __secondUserId = 10
 __chatroom = Chatroom(__chatroomId, __firstUserId, __secondUserId)
 
 # Message module test
+# Message Init 
 # def test_initMessage() :
 #     message = Message(10, "Hello There", "21 November 2020")
 #     assert message.getId() == 10
@@ -31,6 +32,7 @@ def test_message_setId():
     assert message.getId() == 20 
 
 # Chatroom module test
+# Chatroom Init
 def test_initChatRoom() :
     assert __chatroom.getFirstUserId() == 20
 
@@ -46,3 +48,10 @@ def test_setSecondUserId() :
 def test_setMessages() : 
     with pytest.raises(ValueError):
         __chatroom.setMessages(123)
+
+# Backend
+# def test_sendMessage() :
+#     unique_string = str(uuid.uuid4())
+#     sendMessage(__chatroom.getChatroomId(), unique_string)
+#     for i in fetchMessages(__chatroom.getChatroomId) : 
+#         print(i)

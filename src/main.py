@@ -1,6 +1,4 @@
 import tkinter as tk
-from ActivityPage import * 
-
 class Application(tk.Tk):
     def __init__(self,*args,**kwargs):
         tk.Tk.__init__(self,*args,**kwargs)
