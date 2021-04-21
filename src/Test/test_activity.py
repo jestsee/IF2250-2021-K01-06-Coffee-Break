@@ -1,14 +1,14 @@
 import sys
-sys.path.insert(0, r'..\Frontend\Components')
-sys.path.insert(0, r'..\Frontend\Components')
 import os.path
-from activity_page import show_all_act, show_top3_act, add_activity, get_detail_act, randomize_recommendation
-from activity_list import activity_list
+from Frontend.Components.Activity import show_all_act, show_top3_act, add_activity, get_detail_act, randomize_recommendation
+from Frontend.typeDefs.activity_list import activity_list
 import sqlite3
 import pytest
 import tkinter as tk
 
-file_db = os.path.dirname(__file__)+'\\..\\Backend\\storage.db'
+dir_path = os.path.dirname(os.path.realpath(__file__))
+file_db = dir_path+'\..\Backend\storage.db'
+print(file_db)
 
 #Testing using PyTest
 def test_show_top3_act():

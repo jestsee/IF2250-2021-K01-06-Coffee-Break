@@ -11,7 +11,7 @@ class MessageItem(tk.Frame) :
 
         # Initiation
         self.username = Label(self, text=username)
-        self.content = Message(self, text=content)
+        self.content = Label(self, text=content)
         self.timestamp = Label(self, text=timestamp)
 
         # Arranging the fields

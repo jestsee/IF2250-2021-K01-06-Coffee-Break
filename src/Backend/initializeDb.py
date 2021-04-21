@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS activity (
 )
 """)
 
+
 # Create Jurnal Table
 c.execute("""CREATE TABLE IF NOT EXISTS jurnal(
         moodId integer PRIMARY KEY,
@@ -59,6 +60,15 @@ c.execute("""CREATE TABLE IF NOT EXISTS message(
         FOREIGN KEY (chatroomId) REFERENCES chatroom(chatroomId)
         FOREIGN KEY (senderId) REFERENCES user(user_id)
 ) """)
+
+# Create Psychologist table
+c.execute("""
+        CREATE TABLE IF NOT EXISTS psikolog (
+                psikologId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+                nama VARCHAR(255),
+                asal_kota VARCHAR(255)
+        )
+""")
 
 #Commit changes
 conn.commit()

@@ -12,7 +12,7 @@ class Message :
     def getId(self):
         return self.__messageId
     
-    # def setId(self, messageId):
-    #     if(type(messageId) != int) : 
-    #         raise ValueError("Invalid input for Message.setId")
-    #     self.__messageId = messageId
+    def setId(self, messageId):
+        if(type(messageId) != int) : 
+            raise ValueError("Invalid input for Message.setId")
+        self.__messageId = messageId

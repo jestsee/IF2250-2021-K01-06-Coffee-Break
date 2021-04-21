@@ -27,7 +27,7 @@ def test_initMessageEmpty() :
         Message()
 
 def test_message_setId():
-    message = Message(10, "Hello There", "21 November 2020")
+    message = Message(10, 30, "Hello There", "21 November 2020")
     message.setId(20)
     assert message.getId() == 20 
 

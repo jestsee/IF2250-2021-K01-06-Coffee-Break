@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import *
 from PIL import ImageTk, Image
 import sqlite3
-from Frontend.Components.activity_list import activity_list
+from Frontend.typeDefs.activity_list import activity_list
 from datetime import datetime
 import pytest
 import random
@@ -126,7 +126,7 @@ def get_detail_act(idx):
 
 #Create activity detail page
 def activity_detail_page(idx):
-    new = Toplevel(app)
+    new = Toplevel()
     new.title("Detail Activity of " + activity_list()[idx][0])
     new.geometry("800x100")
 
@@ -208,7 +208,7 @@ def add_activity8():
 
 #Create add activity page
 def add_activity_page():
-    newWindow = Toplevel(app)
+    newWindow = Toplevel()
     newWindow.title("Add new activity")
     newWindow.geometry("390x510")
     
@@ -286,7 +286,7 @@ def add_activity_page():
 
 #Create show all activity page
 def all_activity_page():
-    newWindow = Toplevel(app)
+    newWindow = Toplevel()
     newWindow.title("See my activity")
     newWindow.geometry("390x510")
 
@@ -360,33 +360,9 @@ def get_last_record():
 
     return records[0][1]
 
-#Main program
-#Create or connect database activity
-conn = sqlite3.connect(file_db)
+# app = Application()
+# app.mainloop()
 
-#Create cursor
-c = conn.cursor()
-
-#Create table activity
-c.execute("""
-CREATE TABLE IF NOT EXISTS activity (
-    activityId integer PRIMARY KEY,
-    activityName text,
-    activityDetail text,
-    timestamp text
-)
-""")
-
-#Delete all record
-# c.execute("DELETE FROM activity")
-
-#Commit changes
-conn.commit()
-
-#Close connection
-conn.close()
-
-#Looping application
-app = Application()
-
-app.mainloop()
+if __name__ == "__main__":
+    app = Application()
+    app.mainloop()

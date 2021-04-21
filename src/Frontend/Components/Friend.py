@@ -7,7 +7,8 @@ import tkinter as tk
 import tkinter.font as tkFont
 import tkinter.messagebox
 sys.path.insert(1, '../typeDefs')
-import userSDK as u
+import Frontend.typeDefs.User as u 
+from Backend.user import *
 from tkinter import *
 
 class FriendPage(tk.Frame):
@@ -234,7 +235,7 @@ class FriendPage(tk.Frame):
     def refresh_friendlist(self):
         self.friendlist.delete(0,"end")
         self.friendl=[]
-        for user in u.get_friends(2):
+        for user in get_friends(2):
             self.friendl.append(user)
             self.friendlist.insert("end",user.nama)
 

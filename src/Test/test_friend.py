@@ -1,6 +1,6 @@
 import sys
-from Frontend.Components.user import user
-from Frontend.typeDefs.userSDK import *
+from Backend.user import *
+from Frontend.typeDefs.User import *
 import pytest
 
 # menguji apakah sistem berhasil menambahkan user baru ke database

@@ -1,13 +1,12 @@
-from Frontend.Components.mood import editMoodDatabase, editJournalDatabase, NextSection, getJournal
+from Backend.mood import editMoodDatabase, editJournalDatabase, NextSection, getJournal
 import sys
 import os
-sys.path.insert(0, r'..\Frontend\Components')
-sys.path.insert(0, r'..\Frontend\Components')
 import datetime
 import sqlite3
 import pytest
 
-file_db = os.path.dirname(__file__)+'\\..\\Backend\\storage.db'
+dir_path = os.path.dirname(os.path.realpath(__file__))
+file_db = dir_path+'\..\Backend\storage.db'
 
 today = datetime.date.today()
 

@@ -3,11 +3,9 @@ from tkinter import *
 import datetime
 import sqlite3
 import sys
-import pytest
+from Backend.mood import * 
 
-file_db = '../storage.db'
-
-class Mood(tk.Frame):
+class MoodPage(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame.__init__(self,parent)
         # Bagian kiri
@@ -158,96 +156,11 @@ class Application(tk.Tk):
         self.frames[Mood] = frame
         frame.grid(row=0,column=0,sticky="nsew")
         self.show_frame(Mood)
+
     def show_frame(self,page):
         frame = self.frames[page]
         frame.tkraise()
 
-# Memperoleh jurnal dari hari tertentu
-
-def getTheDataFromDay(i):
-    conn = sqlite3.connect(file_db)
-    sql = "Select * from jurnal where date=?"
-    c = conn.cursor()
-    strDay = str(today - datetime.timedelta(days=i))
-    # print(strDay)
-    val = (strDay,)
-    c.execute(sql,val)
-    rows = c.fetchall()
-    for row in rows:
-        return row
-    conn.close()
-
-# Perubahan database setelah dipilih edit mood
-
-def editMoodDatabase(text):
-    global initPage
-    global sidePage
-    conn = sqlite3.connect(file_db)
-    sql = "Update jurnal set mood_record=? where date=?"
-    c = conn.cursor()
-    strToday = str(today)
-    val = (text,strToday)
-    c.execute(sql,val)
-    conn.commit()
-    conn.close()
-
-def editJournalDatabase(text):
-    global initPage
-    global sidePage
-    conn = sqlite3.connect(file_db)
-    sql = "Update jurnal set notes=? where date=?"
-    c = conn.cursor()
-    strToday = str(today)
-    val = (text,strToday)
-    c.execute(sql,val)
-    conn.commit()
-    conn.close()
-
-
-# Memasukkan mood ke database
-
-def NextSection(text):
-    global initPage
-    global sidePage
-    conn = sqlite3.connect(file_db)
-    sql = "Insert into jurnal values (?, ?, ?, null)"
-    c = conn.cursor()
-    c.execute("SELECT COUNT(*) from jurnal")
-    num_row=c.fetchone()[0]
-    strToday = str(today)
-    val = (num_row,strToday,text)
-    c.execute(sql,val)
-    conn.commit()
-    conn.close()
-    
-# Memasukkan jurnal ke database
-
-def getJournal(text):
-    global initPage
-    global sidePage
-    conn = sqlite3.connect(file_db)
-    sql = "Update jurnal set notes=? where date=?"
-    c = conn.cursor()
-    strToday = str(today)
-    val = (text,strToday)
-    c.execute(sql,val)
-    conn.commit()
-    conn.close()
-
-conn = sqlite3.connect(file_db)
-c = conn.cursor()
-c.execute("""CREATE TABLE IF NOT EXISTS jurnal(
-        moodId integer PRIMARY KEY,
-        date text,
-        mood_record text,
-        notes text
-) """)
-
-today = datetime.date.today()
-
-conn.commit()
-conn.close()
-
-app = Application()
-
-app.mainloop()
+if __name__ == "__main__":
+    app = Application()
+    app.mainloop()
