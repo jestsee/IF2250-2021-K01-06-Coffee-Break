@@ -27,19 +27,25 @@ def test_NextSection1():
 
 def test_NextSection2():
     conn = sqlite3.connect(file_db)
-    NextSection("Happy")
-    conn = sqlite3.connect(file_db)
-    sql = "Select * from jurnal where date=?"
     c = conn.cursor()
+    sql = "Select * from jurnal where date=?"
     strDay = str(today)
     val = (strDay,)
     c.execute(sql,val)
-    rows = c.fetchall()
     conn.commit()
+    rows=c.fetchall()
+    if(len(rows)<=0):
+        NextSection("Happy")
+        sql = "Select * from jurnal where date=?"
+        strDay = str(today)
+        val = (strDay,)
+        c.execute(sql,val)
+        conn.commit()
+        rows=c.fetchall()
+        if(len(rows)>0):
+            x = rows[0]
+            assert x[2]=="Happy"
     conn.close()
-    if(len(rows)>0):
-        x = rows[0]
-        assert x[2]=="Happy"
 
 
 def test_getJournal():
