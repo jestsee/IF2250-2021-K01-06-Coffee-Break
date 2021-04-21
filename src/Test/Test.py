@@ -27,21 +27,21 @@ import uuid
 # __chatroomId = chatroom_db.createChatroom(__firstUserId, __secondUserId)
 # __chatroom = Chatroom(__chatroomId, __firstUserId, __secondUserId)
 
-__currentChatroomId = "194682b6-cac9-4b35-88f2-955a0519ed36"
-__chatroom = Chatroom(__currentChatroomId, 20, 10)
+# __currentChatroomId = "194682b6-cac9-4b35-88f2-955a0519ed36"
+# __chatroom = Chatroom(__currentChatroomId, 20, 10)
 
-# chatroom_db.clearChatroomMessages(__currentChatroomId)
+# # chatroom_db.clearChatroomMessages(__currentChatroomId)
 
-chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
-chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
-chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
+# chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
+# chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
+# chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
 
-def test_sendMessage() :
-    unique_string = str(uuid.uuid4())
-    chatroom_db.sendMessage(__chatroom.getChatroomId(), unique_string)
+# def test_sendMessage() :
+#     unique_string = str(uuid.uuid4())
+#     chatroom_db.sendMessage(__chatroom.getChatroomId(), unique_string)
     
-    for Message in chatroom_db.fetchMessages(__chatroom.getChatroomId()) : 
-        for content in Message : 
-            print(content)
+#     for Message in chatroom_db.fetchMessages(__chatroom.getChatroomId()) : 
+#         for content in Message : 
+#             print(content)
 
-test_sendMessage()
+# test_sendMessage()
