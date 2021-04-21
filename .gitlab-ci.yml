@@ -1,6 +1,0 @@
-build-job:
-    stage: build
-    script:
-        - echo "Hello, branch activity is being builded"
-        - python -m pip install --upgrade pip
-        - python activity_page.py
