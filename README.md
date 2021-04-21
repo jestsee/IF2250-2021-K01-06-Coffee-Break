@@ -3,17 +3,18 @@
 Aplikasi Coffee Break. Sebuah aplikasi yang dikembangkan untuk membantu pengguna mencari teman dan psikolog serta mencatat keseharian pengguna berdasarkan mood dan aktivitas yang ia lakukan.
 
 ## Cara Menjalankan
-1. Step1
-2. Step2
+1. Masuk ke directory src
+2. Jalankan `python main.py` pada terminal
 
 ## Daftar Modul yang Diimplementasi
 1. Modul Aktivitas (oleh 13519013 Rahmah Khoirussyifa' Nurdini)
-Disini insert gambar
+![](doc/ModulActivity1.jpg)
 2. Modul Mood (oleh 13519047 Rhea Elka Pandumpi)
-Disini insert gambar
+![](doc/ModulMood4.jpg)
 3. Modul Psikolog (oleh 13519014 Mahameru Ds)
-Disini insert gambar
+![](doc/ModulKonsultasi1.jpg)
 4. Modul Teman (oleh 13519011 Jesica)
+![](doc/ModulSearch2.jpg)
 
 ## Daftar Tabel Basis Data yang Diimplementasi
 1. activity = (activityId, activityName, activityDetail, timestamp)
