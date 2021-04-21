@@ -32,9 +32,9 @@ __chatroom = Chatroom(__currentChatroomId, 20, 10)
 
 # chatroom_db.clearChatroomMessages(__currentChatroomId)
 
-# chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
-# chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
-# chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
+chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
+chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
+chatroom_db.sendMessage(__chatroom.getChatroomId(), str(uuid.uuid4()))
 
 def test_sendMessage() :
     unique_string = str(uuid.uuid4())
