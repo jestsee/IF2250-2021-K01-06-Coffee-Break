@@ -1,0 +1,23 @@
+test_ConsultChatroom:
+  stage: test
+  script:
+    - echo "Testing ConsultChatroom"
+    - python -m pytest -v ./src/Test/Chatroom_test.py
+
+test_friend:
+  stage: test
+  script:
+    - echo "Testing Friend"
+    - python -m pytest -v ./src/Test/test_activity.py
+
+test_mood:
+  stage: test
+  script:
+    - echo "Testing Mood"
+    - python -m pytest -v ./src/Test/test_mood.py
+
+test_activity:
+  stage: test
+  script:
+    - echo "Testing Activity"
+    - python -m pytest -v ./src/Test/test_activity.py
