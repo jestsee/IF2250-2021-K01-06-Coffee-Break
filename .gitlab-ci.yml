@@ -1,5 +1,14 @@
-test-job:
-    stage: test
-    script:
-        - echo "Testing for activity"
-        - python -m pytest -v test_activity.py
+build-job:
+  stage: build
+  script:
+    - echo "Testing build"
+    - cd ./src
+    - python -m Frontend.typeDefs.Chatroom
+
+test-job1:
+  stage: test
+  only:
+    - feature/chat
+  script:
+    - echo "Testing Test run"
+    - python -m pytest -v ./src/Test/Chatroom_test.py
