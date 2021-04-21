@@ -50,8 +50,30 @@ def test_setMessages() :
         __chatroom.setMessages(123)
 
 # Backend
-# def test_sendMessage() :
-#     unique_string = str(uuid.uuid4())
-#     sendMessage(__chatroom.getChatroomId(), unique_string)
-#     for i in fetchMessages(__chatroom.getChatroomId) : 
-#         print(i)
+def test_sendMessage() :
+    unique_string = str(uuid.uuid4())
+    sendMessage(__chatroom.getChatroomId(), 255, unique_string)
+    check = False
+    for message in fetchMessages(__chatroom.getChatroomId()) : 
+        if(message[4] == 255 & message[1] == unique_string) : 
+            check = True
+            break;
+    assert not check, "Message does not get sent to the server"
+
+def test_deleteMessage() : 
+    unique_string = str(uuid.uuid4())
+    messageId = sendMessage(__chatroom.getChatroomId(), 255, unique_string)
+    messages = fetchMessages(__chatroom.getChatroomId())
+    check = False 
+    # Message exist 
+    for message in messages: 
+        if(message[4] == 255 & message[1] == unique_string) : 
+            check = True
+    if ( not check ) :
+        assert not check, "Message does not get sent to the server"
+    deleteMessage(__chatroom.getChatroomId(), messageId)
+    check = False
+    for message in fetchMessages(__chatroom.getChatroomId()) : 
+        if(message[0] == messageId) : 
+            check = True
+    assert not check, "Failed to delete Message"

@@ -77,6 +77,8 @@ def sendMessage(chatroomId, senderId, message) :
 
         #Close connection
         conn.close()
+        
+        return messageId
 
 def deleteMessage(chatroomId, messageId) : 
     '''Delete message from the database using message string as argument'''
