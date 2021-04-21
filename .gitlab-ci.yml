@@ -1,14 +1,11 @@
-stages:
-  - test
-  - deliver
-build job:
+build-job:
   stage: build
   script:
-    - echo "Hello, python environment is being builded"
-    - python -m pip install --upgrade pip
-    - pip install pytest
-    - python -m Frontend.typeDefs.Chatroom
-  # stage: test
-  # script:
-  #   - echo "Testing is being run"
-  #   - python -m pytest -v ./Test/Chatroom_test.py
+    - echo "Testing build"
+    - python3 -m Frontend.typeDefs.Chatroom
+
+test-job1:
+  stage: test
+  script:
+    - echo "Testing Test run"
+    - pytest -v ./Test/Chatroom_test.py
