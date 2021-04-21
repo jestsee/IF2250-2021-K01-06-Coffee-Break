@@ -1,14 +1,43 @@
 import sqlite3
 import sys
-import os
+import os.path
 sys.path.insert(1, '../Components')
-from user import user
 
-os.chdir('../../Backend')
-l = os.path.realpath(
-    os.path.join(os.getcwd(), os.path.dirname("Backend")))
-conn = sqlite3.connect(os.path.join(l, 'user.db'))
-#conn = sqlite3.connect('user.db')
+class user():
+
+    def __init__(self, nama, dom, hobi):
+        self.nama = nama
+        self.dom = dom
+        self.hobi = hobi
+
+    # pass object to print
+    def __str__(self):
+        return f"""
+    Nama \t: {self.nama}
+    Domisili \t: {self.dom}
+    Hobi \t: {self.hobi}
+        """
+
+    # operator==
+    def __eq__(self, other):
+        if(self.nama == other.nama and self.dom == other.dom and self.hobi == other.hobi):
+            return True
+    
+    #It's approriate to give something for __hash__ when you override __eq__
+    # #This is the recommended way if mutable (like it is here):
+    __hash__ = None
+
+    # get nama
+    def get_nama(self):
+        return self.nama
+
+    def __repr__(self): #added to make list of items invoke str
+        return self.__str__()
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+file_db = dir_path + "/storage.db"
+
+conn = sqlite3.connect(file_db)
 c = conn.cursor()
 
 ##### CREATE TABLE #####
@@ -27,7 +56,7 @@ c.execute('''CREATE TABLE IF NOT EXISTS teman
                 FOREIGN KEY (user_id2) REFERENCES user (user_id))''')
 
 def cursor():
-    return sqlite3.connect('user.db').cursor()
+    return sqlite3.connect(file_db).cursor()
 
 # menambahkan user ke database
 def add_user(user):

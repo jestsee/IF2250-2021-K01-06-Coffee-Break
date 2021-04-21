@@ -1,8 +1,8 @@
-import sys, os
+import sys
+from Frontend.Components.user import user
 from Frontend.typeDefs.userSDK import *
 import pytest
 
-sys.path.append(os.path.realpath(os.path.dirname(__file__)+"/../Frontend/Components"))
 # menguji apakah sistem berhasil menambahkan user baru ke database
 def test_add_user():
     nama = "test"
@@ -64,10 +64,6 @@ def test_add_friend():
         c.execute('DELETE FROM user WHERE nama=? AND dom=? AND hobi=?', (nama,dom,hobi))
         c.execute('DELETE FROM teman WHERE user_id1=? AND user_id2=?',(id1,id2))
     c.connection.close()
-
-# menampilkan daftar seluruh pengguna apabila tidak ada kata kunci yang dimasukkan
-def test_get_user_by_all():
-    assert len(get_user_by_all(""))==get_last_row_id()
 
 # menguji apakah sistem dapat melakukan pencarian berdasarkan kata kunci tertentu
 def test_get_user_by_all1():

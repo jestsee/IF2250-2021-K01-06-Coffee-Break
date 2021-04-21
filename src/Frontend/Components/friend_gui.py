@@ -1,11 +1,13 @@
 # friend_gui.py
 import sys
+import os.path
+sys.path.insert(0, r'..\Frontend\typeDefs')
+sys.path.insert(0, r'..\Frontend\typeDefs')
 import tkinter as tk
 import tkinter.font as tkFont
 import tkinter.messagebox
 sys.path.insert(1, '../typeDefs')
 import userSDK as u
-from user import user
 from tkinter import *
 
 class FriendPage(tk.Frame):
