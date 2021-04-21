@@ -1,10 +1,12 @@
 # friend_gui.py
+import sys
 import tkinter as tk
 import tkinter.font as tkFont
 import tkinter.messagebox
+sys.path.insert(1, '../typeDefs')
 import userSDK as u
-from tkinter import *
 from user import user
+from tkinter import *
 
 class FriendPage(tk.Frame):
     def __init__(self, parent, controller):

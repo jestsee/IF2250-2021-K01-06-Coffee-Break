@@ -1,8 +1,14 @@
 import sqlite3
+import sys
+import os
+sys.path.insert(1, '../Components')
 from user import user
 
-conn = sqlite3.connect('user.db')
-
+os.chdir('../../Backend')
+l = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname("Backend")))
+conn = sqlite3.connect(os.path.join(l, 'user.db'))
+#conn = sqlite3.connect('user.db')
 c = conn.cursor()
 
 ##### CREATE TABLE #####
@@ -154,15 +160,4 @@ def get_user_by_all(query):
 # print(get_raw_data())
 # print(get_last_row_id())
 # print(get_users())
-# print(get_user_by_all('a'))
-
-# test = user("anto","jakarta","bobo")
-# print(get_id(test))
-
-# print(get_user_by_id(get_last_row_id()))
-# print(get_friends(2))
-
-############################
-
-# user = get_user_by_id(get_last_row_id())
-# print(user)
+print(get_user_by_all(''))
