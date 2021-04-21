@@ -1,8 +1,8 @@
-build-job:
-  stage: build
-  script:
-    - echo "Testing build"
-    - python -m Frontend.typeDefs.Chatroom
+# build-job:
+#   stage: build
+#   script:
+#     - echo "Testing build"
+#     - py -m Frontend.typeDefs.Chatroom
 
 test-job1:
   stage: test
