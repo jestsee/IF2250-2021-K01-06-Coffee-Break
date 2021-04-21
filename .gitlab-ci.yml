@@ -9,4 +9,4 @@ test-job1:
   stage: test
   script:
     - echo "Testing Test run"
-    - python -m pytest -v .src/Test/Chatroom_test.py
+    - python -m pytest -v ./src/Test/Chatroom_test.py
