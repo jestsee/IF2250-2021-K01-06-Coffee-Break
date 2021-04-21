@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import *
 from PIL import ImageTk, Image
 import sqlite3
-from activity_list import activity_list
+from Frontend.Components.activity_list import activity_list
 from datetime import datetime
 import pytest
 import random
