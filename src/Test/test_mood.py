@@ -1,4 +1,4 @@
-from mood import editMoodDatabase, editJournalDatabase, NextSection, getJournal, getTheDataFromDay
+from Frontend.Components.mood import editMoodDatabase, editJournalDatabase, NextSection, getJournal
 import datetime
 import sqlite3
 import pytest
