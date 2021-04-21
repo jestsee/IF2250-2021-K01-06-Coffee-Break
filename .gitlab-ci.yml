@@ -13,7 +13,7 @@ test_friend:
 test_mood:
   stage: test
   script:
-    - echo "Testing Mood""
+    - echo "Testing Mood"
     - python -m pytest -v ./src/Test/test_mood.py
 
 test_activity:

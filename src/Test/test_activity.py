@@ -8,7 +8,6 @@ import tkinter as tk
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 file_db = dir_path+'\..\Backend\storage.db'
-print(file_db)
 
 #Testing using PyTest
 def test_show_top3_act():

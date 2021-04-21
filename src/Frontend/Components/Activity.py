@@ -6,8 +6,9 @@ from Frontend.typeDefs.activity_list import activity_list
 from datetime import datetime
 import pytest
 import random
+import os.path
 
-file_db = '../../Backend/storage.db'
+file_db = os.path.dirname(__file__)+'\\..\\..\\Backend\\storage.db'
 
 #Randomize recommendation
 def randomize_recommendation():
