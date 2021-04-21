@@ -6,7 +6,7 @@ import time
 
 # Locals 
 from Frontend.typeDefs.Chatroom import Chatroom
-from Frontend.Components.Chatroom.Message import Message
+from Frontend.Components.Chatroom.Message import MessageItem
 
 import Backend.chatroom as chatroom_db
 import Backend.user as user_db
@@ -73,7 +73,7 @@ class ChatroomPage(tk.Frame):
         secondUsername = "Bukan Eru"
         for idx, newMessage in enumerate(Messages) :
             isCurrentUser = newMessage[4] == self.__currentChatroom.getFirstUserId() 
-            message = Message(
+            message = MessageItem(
                 self.chatWindow,
                 content = newMessage[1],
                 timestamp = newMessage[2][11:16],

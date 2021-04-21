@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import * 
 
-class Message(tk.Frame) : 
+class MessageItem(tk.Frame) : 
     def __init__(
         self, parent,
         content = "", 
@@ -11,7 +11,7 @@ class Message(tk.Frame) :
 
         # Initiation
         self.username = Label(self, text=username)
-        self.content = Label(self, text=content)
+        self.content = Message(self, text=content)
         self.timestamp = Label(self, text=timestamp)
 
         # Arranging the fields
