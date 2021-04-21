@@ -8,18 +8,17 @@ import os
 from datetime import datetime
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-# backendSrc = '../../Backend/storage.db'
 backendSrc = dir_path + "/storage.db"
 
 __fetchChatroomMessagesSQL = """
-        SELECT messageId,content,timestamp,message.chatroomId 
+        SELECT messageId,content,timestamp,message.chatroomId, senderId 
         FROM chatroom, message
         WHERE (chatroom.chatroomId, message.chatroomId) = (:chatroomId, :chatroomId)
     """
 
 __sendMessageSQL = """
     INSERT INTO message 
-    VALUES(:messageId, :content, :timestamp, :chatroomId)
+    VALUES(:messageId, :content, :timestamp, :chatroomId, :senderId )
 """
 
 __deleteMessageSQL = """
@@ -51,7 +50,7 @@ def createChatroom(firstUserId, secondUserId) :
 
     return chatroomId
 
-def sendMessage(chatroomId, message) : 
+def sendMessage(chatroomId, senderId, message) : 
         '''Sending message to the database using message string as argument'''
         if(type(message) != str) : 
             raise ValueError("Invalid argument for sending message.")
@@ -69,6 +68,7 @@ def sendMessage(chatroomId, message) :
             'messageId' : messageId,
             'content' : message,
             'timestamp': now_string,
+            'senderId' : senderId,
             'chatroomId' : chatroomId
         })  
 
