@@ -188,15 +188,15 @@ class FriendPage(tk.Frame):
         self.res = []
         # get query
         query = self.searchbox.get()
-        for user in u.get_user_by_all(query):
+        for user in get_user_by_all(query):
             self.res.append(user)
             self.searchresult.insert("end",user)
 
         if(query=="all" or query =="All"):
-            for user in u.get_users():
+            for user in get_users():
                 self.res.append(user)
                 self.searchresult.insert("end",user)
-        elif(len(u.get_user_by_all(query))==0):
+        elif(len(get_user_by_all(query))==0):
             # show pop up message
             tkinter.messagebox.showinfo("Error","User not found")
         self.searchbox.delete(0, tk.END)

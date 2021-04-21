@@ -22,13 +22,13 @@ import uuid
 # chatroom_db.sendMessage(chat.getChatroomId(), "Hey There")
 
 
-# __firstUserId = 20
-# __secondUserId = 10
-# __chatroomId = chatroom_db.createChatroom(__firstUserId, __secondUserId)
-# __chatroom = Chatroom(__chatroomId, __firstUserId, __secondUserId)
+__firstUserId = 20
+__secondUserId = 10
+__chatroomId = chatroom_db.createChatroom(__firstUserId, __secondUserId)
+__chatroom = Chatroom(__chatroomId, __firstUserId, __secondUserId)
 
-__currentChatroomId = "2e88cf26-afb9-4c8e-a057-7dbb0e5a34c0"
-__chatroom = Chatroom(__currentChatroomId, 20, 10)
+# __currentChatroomId = "2e88cf26-afb9-4c8e-a057-7dbb0e5a34c0"
+# __chatroom = Chatroom(__currentChatroomId, 20, 10)
 
 # chatroom_db.clearChatroomMessages(__currentChatroomId)
 

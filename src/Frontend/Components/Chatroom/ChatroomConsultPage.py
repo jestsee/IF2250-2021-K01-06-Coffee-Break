@@ -17,7 +17,7 @@ class ChatroomConsultPage(tk.Frame):
     __secondUsername = "Bukan Eru"
     __firstUserId = 20
     __secondUserId = 10
-    __currentChatroomId = "2e88cf26-afb9-4c8e-a057-7dbb0e5a34c0"
+    __currentChatroomId = "68b5adc2-1418-4b28-8ca2-96d6c19667d9"
     __currentChatroom = Chatroom(__currentChatroomId, __firstUserId, __secondUserId)
     def __init__(self, parent, controller):
         currentRow = 0
@@ -69,7 +69,6 @@ class ChatroomConsultPage(tk.Frame):
         # Dapat digunakan pada program final 
         # firstUsername = user_db.getUsername(self.__currentChatroom.getFirstUserId())
         # secondUsername = user_db.getUsername(self.__currentChatroom.getSecondUserId())
-
         firstUsername = "Psikolog"
         secondUsername = "Bukan Eru"
         for idx, newMessage in enumerate(Messages) :
