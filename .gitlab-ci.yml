@@ -7,6 +7,8 @@ build-job:
 
 test-job1:
   stage: test
+  only:
+    - feature/chat
   script:
     - echo "Testing Test run"
     - python -m pytest -v ./src/Test/Chatroom_test.py
