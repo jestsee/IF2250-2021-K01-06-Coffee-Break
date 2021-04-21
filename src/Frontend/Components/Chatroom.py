@@ -13,11 +13,12 @@ class ChatroomPage(tk.Frame):
     def __init__(self, parent, controller):
         currentRow = 0
         tk.Frame.__init__(self, parent)
+        self.width = 1000
         self.username = Label(self, text="username")
         
         self.username.grid(row = 0, sticky = "nsew", pady = 2)
         
-        self.chatWindow = Text(self, height=10, width=100, padx = 10, pady = 5)
+        self.chatWindow = Text(self, height=10, padx = 10, pady = 5)
         self.chatWindow.grid(
             row = 1, columnspan = 2, 
             pady = 10, padx = 20, 
