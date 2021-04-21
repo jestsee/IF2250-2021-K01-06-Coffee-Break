@@ -1,7 +1,11 @@
 import sqlite3
+import os
+
 
 #Create or connect database activity
-conn = sqlite3.connect('storage.db')
+dir_path = os.path.dirname(os.path.realpath(__file__))
+conn = sqlite3.connect(dir_path + '/storage.db')
+
 #Create cursor
 c = conn.cursor()
 
