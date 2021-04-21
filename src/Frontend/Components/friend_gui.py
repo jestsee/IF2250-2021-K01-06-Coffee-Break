@@ -1,31 +1,34 @@
 # friend_gui.py
+import sys
+import os.path
+sys.path.insert(0, r'..\Frontend\typeDefs')
+sys.path.insert(0, r'..\Frontend\typeDefs')
 import tkinter as tk
 import tkinter.font as tkFont
 import tkinter.messagebox
+sys.path.insert(1, '../typeDefs')
 import userSDK as u
 from tkinter import *
-from user import user
 
-class App:
-    def __init__(self, root):
-        #setting title
-        root.title("friend")
+class FriendPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
 
         # initialize
         self.res = []
         self.friendl = []
 
         #setting window size
-        width=1280
-        height=720
-        screenwidth = root.winfo_screenwidth()
-        screenheight = root.winfo_screenheight()
-        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
-        root.geometry(alignstr)
+        # width=1280
+        # height=720
+        # screenwidth = root.winfo_screenwidth()
+        # screenheight = root.winfo_screenheight()
+        # alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+        # root.geometry(alignstr)
         # root.resizable(width=False, height=False)
 
         # search friend text
-        search_label=tk.Label(root)
+        search_label=tk.Label(self)
         search_label["cursor"] = "target"
         ft = tkFont.Font(family='Times',size=24)
         search_label["font"] = ft
@@ -35,7 +38,7 @@ class App:
         search_label.place(x=10,y=40,width=232,height=47)
 
         # display search result
-        self.searchresult=tk.Listbox(root)
+        self.searchresult=tk.Listbox(self)
         self.searchresult["borderwidth"] = "1px"
         ft = tkFont.Font(family='Arial',size=12)
         self.searchresult["font"] = ft
@@ -44,7 +47,7 @@ class App:
         self.searchresult.place(x=50,y=90,width=480,height=533)
 
         # searchbox to input search query
-        self.searchbox=tk.Entry(root) # cara get entry : searchbox.get()
+        self.searchbox=tk.Entry(self) # cara get entry : searchbox.get()
         self.searchbox["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=12)
         self.searchbox["font"] = ft
@@ -54,7 +57,7 @@ class App:
         self.searchbox.place(x=230,y=40,width=225,height=40)
         
         # submit search query button
-        searchbutton=tk.Button(root)
+        searchbutton=tk.Button(self)
         searchbutton["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=14)
         searchbutton["font"] = ft
@@ -65,7 +68,7 @@ class App:
         searchbutton["command"] = self.searchbutton_command
 
         # add friend button
-        addfriendbutton=tk.Button(root)
+        addfriendbutton=tk.Button(self)
         addfriendbutton["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=14)
         addfriendbutton["font"] = ft
@@ -76,7 +79,7 @@ class App:
         addfriendbutton["command"] = self.addfriendbutton_command
 
         # chat button
-        chatbutton=tk.Button(root)
+        chatbutton=tk.Button(self)
         chatbutton["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=14)
         chatbutton["font"] = ft
@@ -87,7 +90,7 @@ class App:
         chatbutton["command"] = self.chatbutton_command
 
         # my friend text
-        myfriend=tk.Label(root, anchor="w")
+        myfriend=tk.Label(self, anchor="w")
         myfriend["cursor"] = "target"
         ft = tkFont.Font(family='Times',size=24)
         myfriend["font"] = ft
@@ -97,7 +100,7 @@ class App:
         myfriend.place(x=550,y=40,width=232,height=47)
 
         # friend list
-        self.friendlist=tk.Listbox(root)
+        self.friendlist=tk.Listbox(self)
         self.friendlist["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=14)
         self.friendlist["font"] = ft
@@ -109,7 +112,7 @@ class App:
         #print(self.friendl)
 
         # chat friend button
-        self.chatfriendbutton=tk.Button(root)
+        self.chatfriendbutton=tk.Button(self)
         self.chatfriendbutton["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=14)
         self.chatfriendbutton["font"] = ft
@@ -120,7 +123,7 @@ class App:
         self.chatfriendbutton["command"] = self.chatfriendbutton_command
 
         # delete friend button
-        self.deletefriendbutton=tk.Button(root)
+        self.deletefriendbutton=tk.Button(self)
         self.deletefriendbutton["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=14)
         self.deletefriendbutton["font"] = ft
@@ -131,7 +134,7 @@ class App:
         self.deletefriendbutton["command"] = self.deletefriendbutton_command
 
         # my friend text
-        self.chat=tk.Label(root, anchor="w")
+        self.chat=tk.Label(self, anchor="w")
         self.chat["cursor"] = "target"
         ft = tkFont.Font(family='Times',size=24)
         self.chat["font"] = ft
@@ -141,7 +144,7 @@ class App:
         self.hide(self.chat)
 
         # chatroom box
-        self.chatroom=tk.Listbox(root)
+        self.chatroom=tk.Listbox(self)
         self.chatroom["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=14)
         self.chatroom["font"] = ft
@@ -150,7 +153,7 @@ class App:
         self.hide(self.chatroom)
 
         # input message box
-        self.messagebox=tk.Entry(root)
+        self.messagebox=tk.Entry(self)
         self.messagebox["borderwidth"] = "1px"
         ft = tkFont.Font(family='Times',size=14)
         self.messagebox["font"] = ft
@@ -160,7 +163,7 @@ class App:
         self.hide(self.messagebox)
         
         # send message button
-        self.sendbutton=tk.Button(root)
+        self.sendbutton=tk.Button(self)
         self.sendbutton["bg"] = "#efefef"
         ft = tkFont.Font(family='Times',size=14)
         self.sendbutton["font"] = ft
@@ -181,7 +184,7 @@ class App:
     def searchbutton_command(self):
         # reset result
         self.searchresult.delete(0,"end")
-        res = []
+        self.res = []
         # get query
         query = self.searchbox.get()
         for user in u.get_user_by_all(query):
@@ -198,19 +201,23 @@ class App:
         self.searchbox.delete(0, tk.END)
 
     def addfriendbutton_command(self):
-        self.friendlist.delete(0,"end")
         index = self.searchresult.curselection()
-        # print(self.res[index[0]])
-        myid = 2 # misal id user nya 2
-        friendid = u.get_id(self.res[index[0]])
-        u.add_friend(myid, friendid)
+        if(len(index)!=0):
+            
+            # print(self.res[index[0]])
+            myid = 2 # misal id user nya 2
+            friendid = u.get_id(self.res[index[0]])
+            if(u.add_friend(myid, friendid)==-99):
+                tkinter.messagebox.showinfo("Error","Kamu tidak bisa menambahkan teman yang sudah ada")
+            self.friendlist.delete(0,"end")
+            # update friendlist box
+            #self.friendlist.insert("end",self.res[index[0]])
+            #self.friendl.append(self.res[index[0]])
+            self.refresh_friendlist()
+            print(self.friendl)
 
-        # update friendlist box
-        #self.friendlist.insert("end",self.res[index[0]])
-        #self.friendl.append(self.res[index[0]])
-
-        self.refresh_friendlist()
-        print(self.friendl)
+        else:
+            tkinter.messagebox.showinfo("Error","Kamu belum memilih teman untuk ditambahkan")
 
     def deletefriendbutton_command(self):
         try:
@@ -219,11 +226,13 @@ class App:
             frenid = u.get_id(self.friendl[index[0]])
             print(u.delete_friend(2,frenid))
             self.friendlist.delete((index))
+            self.refresh_friendlist()
         except IndexError:
             index = -99
-            tkinter.messagebox.showinfo("Error","belum memilih teman untuk dihapus")
+            tkinter.messagebox.showinfo("Error","Kamu belum memilih teman untuk dihapus")
 
     def refresh_friendlist(self):
+        self.friendlist.delete(0,"end")
         self.friendl=[]
         for user in u.get_friends(2):
             self.friendl.append(user)
@@ -259,8 +268,29 @@ class App:
     def hide(self, item):
         item.place_forget()
 
+class Application(tk.Tk):
+    def __init__(self,*args,**kwargs):
+        tk.Tk.__init__(self,*args,**kwargs)
+
+        #Creating a window
+        window = tk.Frame(self)
+        window.pack()
+
+        window.grid_rowconfigure(0, minsize = 720)
+        window.grid_columnconfigure(0, minsize = 1280)
+
+        self.frames = {}
+
+        frame = FriendPage(window, self)
+        self.frames[FriendPage] = frame
+        frame.grid(row = 0, column = 0, sticky="nsew")        
+
+        self.show_frame(FriendPage)
+
+    def show_frame(self, page):
+        frame = self.frames[page]
+        frame.tkraise()
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = App(root)
-    root.mainloop()
+    app = Application()
+    app.mainloop()
