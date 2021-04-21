@@ -4,8 +4,8 @@ build-job:
     - echo "Hello, Chatroom Class is being builded"
     - python -m pip install --upgrade pip
     - pip install pytest
-    - py -m Frontend.typeDefs.Chatroom
+    - python -m Frontend.typeDefs.Chatroom
   stage: test
   script:
     - echo "Testing is being run"
-    - pytest -v ./Test/Chatroom_test.py
+    -  python -m pytest -v ./Test/Chatroom_test.py
