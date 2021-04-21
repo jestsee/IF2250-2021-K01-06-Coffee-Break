@@ -5,6 +5,8 @@ import sqlite3
 import sys
 import pytest
 
+file_db = '../storage.db'
+
 class Mood(tk.Frame):
     def __init__(self,parent,controller):
         tk.Frame.__init__(self,parent)
@@ -163,7 +165,7 @@ class Application(tk.Tk):
 # Memperoleh jurnal dari hari tertentu
 
 def getTheDataFromDay(i):
-    conn = sqlite3.connect('mood.db')
+    conn = sqlite3.connect(file_db)
     sql = "Select * from jurnal where date=?"
     c = conn.cursor()
     strDay = str(today - datetime.timedelta(days=i))
@@ -180,7 +182,7 @@ def getTheDataFromDay(i):
 def editMoodDatabase(text):
     global initPage
     global sidePage
-    conn = sqlite3.connect('mood.db')
+    conn = sqlite3.connect(file_db)
     sql = "Update jurnal set mood_record=? where date=?"
     c = conn.cursor()
     strToday = str(today)
@@ -192,7 +194,7 @@ def editMoodDatabase(text):
 def editJournalDatabase(text):
     global initPage
     global sidePage
-    conn = sqlite3.connect('mood.db')
+    conn = sqlite3.connect(file_db)
     sql = "Update jurnal set notes=? where date=?"
     c = conn.cursor()
     strToday = str(today)
@@ -207,7 +209,7 @@ def editJournalDatabase(text):
 def NextSection(text):
     global initPage
     global sidePage
-    conn = sqlite3.connect('mood.db')
+    conn = sqlite3.connect(file_db)
     sql = "Insert into jurnal values (?, ?, ?, null)"
     c = conn.cursor()
     c.execute("SELECT COUNT(*) from jurnal")
@@ -223,7 +225,7 @@ def NextSection(text):
 def getJournal(text):
     global initPage
     global sidePage
-    conn = sqlite3.connect('mood.db')
+    conn = sqlite3.connect(file_db)
     sql = "Update jurnal set notes=? where date=?"
     c = conn.cursor()
     strToday = str(today)
@@ -232,7 +234,7 @@ def getJournal(text):
     conn.commit()
     conn.close()
 
-conn = sqlite3.connect('mood.db')
+conn = sqlite3.connect(file_db)
 c = conn.cursor()
 c.execute("""CREATE TABLE IF NOT EXISTS jurnal(
         moodId integer PRIMARY KEY,
